@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+
+  <h1>SELECTION MAP!</h1>
+
+  
+<!-- 
+  -- users will see 6 pictures, representing cities.  each has an event attached
+  selected picture will select that city map on next page, send message to server route, render maps.html. -->
+
+ PUT SIX IMAGES HERE! IN A GRID!!  
+
+<div>
+<input type="image" id="city_sel" src="static/images/Portland.jpg" onclick="setView()" width="200" height="200" data-lat="45.523062" data-lon="-122.676482">
+<input type="image" id="city_sel" src="static/images/San_Diego.jpg" onclick="setView()" width="200" height="200" data-lat="32.732996" data-lon="117.163868">
+<input type="image" id="city_sel" src="static/images/San_Francisco.jpg" onclick="setView()" width="200" height="200" data-lat="37.766237" data-lon="-122.439280">
+</div>
+
+{% endblock %}

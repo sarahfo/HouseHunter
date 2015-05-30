@@ -1,0 +1,66 @@
+ <!doctype html>
+<html>
+<head>
+    <title>HouseHunter</title>
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.css"/>
+    <!-- <link rel="stylesheet" href="/static/css/site.css"/> -->
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.9/mapbox.css' rel='stylesheet'/>
+    <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.9/mapbox.js'></script>  
+    <script src="/static/js/script.js"></script>
+</head>
+
+<!-- 
+{% if "user_id" in session %}
+    <a href="/logout">Logout</a>
+{% else %}
+    <a href="/login">Login</a>
+{% endif %}
+
+<hr>
+
+{% for flash in get_flashed_messages() %}
+  {{ flash }}
+{% endfor %} -->
+
+<body>
+      <nav class="navbar navbar-default navbar-static-top">
+            <div class="container-fluid">               
+                    <div class="navbar-header">
+                          <button type="button"
+                                  class="navbar-toggle collapsed"
+                                  data-toggle="collapse"
+                                  data-target="#navbar"
+                                  aria-expanded="false"
+                                  aria-controls="navbar">
+                              <span class="sr-only">Toggle navigation</span>
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                          </button>
+                              <a class="navbar-brand" href="#">Home Hunter</a>
+                    </div>  <!-- navbar header close -->
+                    <div id="navbar" class="navbar-collapse collapse">
+                          <ul class="nav navbar-nav navbar-left">
+                              <li class="active"><a href="#">Home</a></li>
+                              <!-- <li><a href="#">About Us</a></li>
+                              <li><a href="#">Contact</a></li> -->
+                              </li>
+                          </ul>
+                          <ul class="nav navbar-nav navbar-right">
+                              <li><a href="#">Profile</a></li>
+                              <li><a href="#">Log In</a></li>
+                          </ul>
+                    </div>
+            </div>
+      </nav>
+</body>
+
+
+{% block content %}
+	content goes here
+{% endblock %}
+
+
+</html>
