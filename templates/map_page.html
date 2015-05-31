@@ -1,7 +1,38 @@
 {% extends 'base.html' %}
 {% block content %}
 
-Awesome Map Will go Here.
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-9">
+			<div id="map" style="width:100%; height:500px"></div>
+		</div>
+AWESOME Map Will go Here.
 src via js 
+		<div class="col-md-3">
+			<form action="/make_yelp_parameters" method="GET" id="Yelp_Params">
+			  <h5> I want to live within walking distance of: </h5>
+				<label> <input type="checkbox" name="category_filter" value="grocery"> Grocery Stores </label>
+				<br>
+				<label><input type="checkbox" name="category_filter" value="gyms"> Gym </label>
+				<br>
+				<label><input type="checkbox" name="category_filter" value="restaurants"> Restaurants </label>
+				<br>
+				<label><input type="checkbox" name="category_filter" value="divebars"> Dive Bars </label>
+				<br>
+				<label><input type="checkbox" name="category_filter" value="gaybars"> Gay Bars </label>
+				<br>
+				<label><input type="checkbox" name="category_filter" value="meditationcenters"> Meditation Centers </label>
+				<br>
+				<label><input type="checkbox" name="category_filter" value="yoga"> Yoga </label>
+				<br>
+				<label><input type="checkbox" name="category_filter" value="rock_climbing"> Rock Climbing </label>
+				<br>
+				<input type="submit" value="Display">
+			</form>
+		</div>
+	</div>
+</div>
+
 
 {% endblock %}

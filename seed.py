@@ -38,11 +38,9 @@ def load_homes():
             listing_id = home_info[26]
             original_source = home_info[27]
             favorite = home_info[28]
-            latitude = home_info[30]   #testing
+            latitude = home_info[30]  
             longitude = home_info[31]
-
-            # address, city, state, zip_code\
-            # parking_type, _, status, = home_info
+            city_id = home_info[33]
 
             
               #testing
@@ -63,7 +61,7 @@ def load_homes():
             add_home = Home(home_type=home_type, address=address, city=city, state=state, zip_code=zip_code, list_price=list_price,
                 beds=beds, baths=baths, location=location, sqft=sqft, lot_size=lot_size, year_built=year_built, parking_spots=parking_spots,
                 parking_type=parking_type, status=status, url=url, source=source, listing_id=listing_id, original_source=original_source, favorite=favorite,
-                latitude=latitude, longitude=longitude)
+                latitude=latitude, longitude=longitude, city_id=city_id)
             # print add_home
             db.session.add(add_home)
     db.session.commit()

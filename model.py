@@ -10,19 +10,20 @@ db = SQLAlchemy()
 ##############################################################################
 # Model definitions
 
-# class User(db.Model):
-# 	"""User of House Hunter Website"""
+class User(db.Model):
+	"""User of House Hunter Website"""
 
-# 	__tablename__ = "users"
+	__tablename__ = "users"
 
-# 	email = db.Column(db.String(100), primary_key=True)
-# 	password = db.Column(db.String(64), nullable=False)
-# 	age = db.Column(db.Integer, nullable=False)
+	email = db.Column(db.String(100), primary_key=True)
+	password = db.Column(db.String(64), nullable=False)
+	age = db.Column(db.Integer, nullable=False)
+	searches = db.Column(db.String(140), nullable=True)
 
-# 	def __repr__(self):
-# 		"""Represents the data in a helpful way when printed"""
+	def __repr__(self):
+		"""Represents the data in a helpful way when printed"""
 
-# 		return "<User email=%s age=%d>" % (self.email, self.age)
+		return "<User email=%s age=%d>" % (self.email, self.age)
 
 
 class Home(db.Model):
@@ -53,7 +54,7 @@ class Home(db.Model):
 	favorite = db.Column(db.String(1), nullable=True)
 	latitude = db.Column(db.Integer, nullable=True)
 	longitude = db.Column(db.Integer, nullable=True)
-
+	city_id = db.Column(db.String(5), nullable=True)
 
 	def __repr__(self):
 		"""Represents the data in a helpful way when printed"""
