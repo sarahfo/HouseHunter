@@ -2,6 +2,7 @@
 """Models and database functions for House Hunter project."""
 
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.orm import mapper
 
 
 db = SQLAlchemy()
@@ -59,7 +60,7 @@ class Home(db.Model):
 	def __repr__(self):
 		"""Represents the data in a helpful way when printed"""
 
-		return "<address=%s, home_type=%s, latitude=%r>" % (self.address, self.home_type, self.latitude)
+		return "<address=%s, home_type=%s>" % (self.address, self.home_type)
 
 
 ##############################################################################
