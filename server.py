@@ -27,7 +27,7 @@ def map():
     setView = {}
     if city_id == "SD":
         setView['lat'] =  32.732996
-        setView['lon'] =  117.163868
+        setView['lon'] = -117.163868
     elif city_id == "Port":
         setView['lat'] = 45.523062
         setView['lon'] = -122.676482

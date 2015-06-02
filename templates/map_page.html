@@ -24,7 +24,7 @@ YOUR LAT LON:
 //MAKE MAP APPEAR
 console.log({{setView.lat}})
 L.mapbox.accessToken = 'pk.eyJ1Ijoic2FyYWhmbyIsImEiOiJaQmdHLWZJIn0.eEg4zenYs0-qcPsMBZ9i1g';
-var map = L.mapbox.map('map').setView([{{setView.lat}},{{setView.lon}}], 14);
+var map = L.mapbox.map('map').setView([{{setView.lat}},{{setView.lon}}], 13);
 // var map = L.mapbox.map('map').setView([{{setView.lon}},{{setView.lat}}], 12);
 L.control.layers({
 	'Mapbox Streets': L.mapbox.tileLayer('mapbox.streets').addTo(map),
