@@ -1,6 +1,6 @@
 """File to seed homes database from merged csv file in data/"""
 
-from model import Home, connect_to_db, db
+from model import House, connect_to_db, db
 from server import app
 import datetime, csv
 from collections import namedtuple
@@ -58,7 +58,7 @@ def load_homes():
             # print "HI"  #checking!
 
 
-            add_home = Home(home_type=home_type, address=address, city=city, state=state, zip_code=zip_code, list_price=list_price,
+            add_home = House(home_type=home_type, address=address, city=city, state=state, zip_code=zip_code, list_price=list_price,
                 beds=beds, baths=baths, location=location, sqft=sqft, lot_size=lot_size, year_built=year_built, parking_spots=parking_spots,
                 parking_type=parking_type, status=status, url=url, source=source, listing_id=listing_id, original_source=original_source, favorite=favorite,
                 latitude=latitude, longitude=longitude, city_id=city_id)

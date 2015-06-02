@@ -6,7 +6,7 @@ from jinja2 import StrictUndefined
 from yelpapi import YelpAPI
 from flask import Flask, render_template, request, flash, redirect, session, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
-from model import Home, User, connect_to_db, db
+from model import House, User, connect_to_db, db
 
 
 app = Flask(__name__)
@@ -28,26 +28,28 @@ def map():
     if city_id == "SD":
         setView['lat'] =  32.732996
         setView['lon'] =  117.163868
-    # elif city_id == "Port":
-    #     setView.update[{'lat':45.523062, 'lon':-122.676482}]
-    # elif city_id == "SF":
-    #     setView.update[{'lat': 37.766237, 'lon':-122.439280}]
-    # elif city_id == "DC":
-    #     setView.update[{'lat': 38.900652, 'lon':-77.030897}]
-    # elif city_id == "SEA":
-    #     setView.update[{'lat': 47.606209, 'lon':-122.332071}]
+    elif city_id == "Port":
+        setView['lat'] = 45.523062
+        setView['lon'] = -122.676482
+    elif city_id == "SF":
+        setView['lat'] = 37.766237
+        setView['lon'] = -122.439280
+    elif city_id == "DC":
+        setView['lat'] = 38.900652
+        setView['lon'] = -77.030897
+    elif city_id == "SEA":
+        setView['lat'] = 47.606209
+        setView['lon'] = -122.332071
     else:
         print "no city id selected"
-    setView = setView
+
+    listings = House.query.filter_by(city_id=city_id).all()
     
-     #gets the data value passed in URL to key city_id
-    print setView
-    # listings = Home.query.filter(Home.city_id == city_id).first()
-    # print listings
+    # homes = listings['homes']
     # listings = json.loads(request.text)
     # EITHER PARSE JSON HERE OR SEND IT BACK TO SCRIPT FOR JINJA TO DEAL WITH.
     # FOR MAPPING OBJECTS, need the address or lat/lon. 
-    return render_template("map_page.html", setView=setView)
+    return render_template("map_page.html", setView=setView, listings=listings)
 
 # @app.route("/city")
 # def get_city:
@@ -65,12 +67,9 @@ if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the point
     # that we invoke the DebugToolbarExtension
 
-    # Do not debug for demo
-    app.run(debug=True)
-
     connect_to_db(app)
-
+    
     # Use the DebugToolbar
     DebugToolbarExtension(app)
 
-    app.run()
+    app.run(debug=True)
