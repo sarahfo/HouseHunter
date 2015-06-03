@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-md-9">
 			<div id="map" style="width:100%; height:500px"></div>
-
+<pre id='coordinates' class='ui-coordinates'></pre>
 
 AWESOME Map Will go Here.
 YOUR LAT LON:
@@ -14,25 +14,74 @@ YOUR LAT LON:
 {{ setView.lon }}
 
 <p> These are your homes!!</p>
+
 {% for listing in listings %}
 	{{listing.address}}
 	{{listing.city}}
 	{{listing.list_price}}
 {% endfor %}
 
+
+
+ 
 <script>
 //MAKE MAP APPEAR
-console.log({{setView.lat}})
+
 L.mapbox.accessToken = 'pk.eyJ1Ijoic2FyYWhmbyIsImEiOiJaQmdHLWZJIn0.eEg4zenYs0-qcPsMBZ9i1g';
 var map = L.mapbox.map('map').setView([{{setView.lat}},{{setView.lon}}], 13);
-// var map = L.mapbox.map('map').setView([{{setView.lon}},{{setView.lat}}], 12);
 L.control.layers({
 	'Mapbox Streets': L.mapbox.tileLayer('mapbox.streets').addTo(map),
 });
-// console.log(setView)
-// var myLayer = L.mapbox.featureLayer().addTo(map);
-// var features = [];
+var myHouseLayer = L.mapbox.featureLayer().addTo(map)
 
+var features = [];
+
+{% for listing in listings %}
+  {% if listing.latitude %}
+  {% if listing.longitude %}
+
+              features.push({
+                  type: 'Feature',
+                  geometry: {
+                      type: 'Point',
+                      coordinates: [{{listing.longitude}}, {{listing.latitude}}]
+
+                  },
+                  properties: {
+                      'marker-color': '#060',
+                      'marker-symbol': 'building',
+                       title: '{{listing.address|capitalize}}',
+                      {% if listing.list_price %}
+                        'Price:': '{{listing.list_price}}'
+                      {% endif %}
+                      
+                  }
+              });
+      {% endif %}
+  {% endif %}      
+{% endfor %}
+          myHouseLayer.setGeoJSON({
+              type: 'FeatureCollection',
+              features: features
+          });
+
+          map.on('move', function() {
+              // Construct an empty list to fill with onscreen markers.
+              var inBounds = [],
+              // Get the map bounds - the top-left and bottom-right locations.
+                  bounds = map.getBounds();
+
+              // For each marker, consider whether it is currently visible by comparing
+              // with the current map bounds.
+              myHouseLayer.eachLayer(function(marker) {
+                  if (bounds.contains(marker.getLatLng())) {
+                      inBounds.push(marker.options.title);
+                  }
+              });
+
+              // Display a list of markers.
+              document.getElementById('coordinates').innerHTML = inBounds.join('\n');
+          });
 
 </script>
 </div>

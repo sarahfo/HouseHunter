@@ -28,7 +28,7 @@ def map():
     if city_id == "SD":
         setView['lat'] =  32.732996
         setView['lon'] = -117.163868
-    elif city_id == "Port":
+    elif city_id == "PORT":
         setView['lat'] = 45.523062
         setView['lon'] = -122.676482
     elif city_id == "SF":
@@ -44,9 +44,8 @@ def map():
         print "no city id selected"
 
     listings = House.query.filter_by(city_id=city_id).all()
-    
     # homes = listings['homes']
-    # listings = json.loads(request.text)
+    # listings = json.dumps(listings)
     # EITHER PARSE JSON HERE OR SEND IT BACK TO SCRIPT FOR JINJA TO DEAL WITH.
     # FOR MAPPING OBJECTS, need the address or lat/lon. 
     return render_template("map_page.html", setView=setView, listings=listings)
