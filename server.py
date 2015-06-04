@@ -28,18 +28,23 @@ def map():
     if city_id == "SD":
         setView['lat'] =  32.732996
         setView['lon'] = -117.163868
+        city="San Diego, CA"
     elif city_id == "PORT":
         setView['lat'] = 45.523062
         setView['lon'] = -122.676482
+        city="Portland, OR"
     elif city_id == "SF":
         setView['lat'] = 37.766237
         setView['lon'] = -122.439280
+        city="San Francisco, CA"
     elif city_id == "DC":
         setView['lat'] = 38.900652
         setView['lon'] = -77.030897
+        city="Washington, DC"
     elif city_id == "SEA":
         setView['lat'] = 47.606209
         setView['lon'] = -122.332071
+        city="Seattle, WA"
     else:
         print "no city id selected"
 
@@ -48,19 +53,49 @@ def map():
     # listings = json.dumps(listings)
     # EITHER PARSE JSON HERE OR SEND IT BACK TO SCRIPT FOR JINJA TO DEAL WITH.
     # FOR MAPPING OBJECTS, need the address or lat/lon. 
-    return render_template("map_page.html", setView=setView, listings=listings)
+    return render_template("map_page.html", setView=setView, listings=listings, city=city)
 
-# @app.route("/city")
-# def get_city:
-#     """Gets the city selected by the user on the landing page"""
+@app.route('/yelp_params', methods=['GET'])
+def search_parameters():
+    """Gets the list of user-selected categories and location and sends them to Yelp API"""
+    if request.args:
+        yelp_search_selection = request.args.getlist('category_filter')
+        yelp_search = ",".join(yelp_search_selection)
+        yelp_location = request.args['location']
+        
+        businesses = get_results(make_parameters(yelp_search, yelp_location))
+        
+def make_parameters(yelp_search, yelp_location):
+    """Yelp API defines the key names for the parameters."""
+    params = {}
+    params['category_filter'] = yelp_search
+    params ["location"] = yelp_location
 
-#     city = request.  (city image ID?)
-#     houses = Homes.query.filter_by(city=city).all()
+    return params
 
-#     return jsonify(homes query variables and send them over)
+def get_results(params):
+    """OAuth Session with secret keys, sourced from OS."""
+
+    
+    auth_session = rauth.OAuth1Session(
+        consumer_key = os.environ['YELP_CONSUMER_KEY'],
+        consumer_secret = os.environ['YELP_CONSUMER_SECRET'],
+        access_token = os.environ['YELP_ACCESS_TOKEN_KEY'],
+        access_token_secret = os.environ['YELP_ACCESS_TOKEN_SECRET'])
+
+    request = auth_session.get("http://api.yelp.com/v2/search", params=params)   
+   
+    data = json.loads(request.text)  #Transforms the JSON API response into a Python dictionary
+    auth_session.close()
+    pprint.pprint(data)
+    businesses = data['businesses']
+    return redirect("/map_page", businesses=businesses)
 
 
-
+@app.errorhandler(404)
+def fourOhFour(error):
+   return render_template("fourohfour.html")
+        
 
 if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the point

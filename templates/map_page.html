@@ -6,22 +6,21 @@
     <div class="row">
         <div class="col-md-9">
 			<div id="map" style="width:100%; height:500px"></div>
-<pre id='coordinates' class='ui-coordinates'></pre>
 
 AWESOME Map Will go Here.
 YOUR LAT LON:
 {{ setView.lat }}
 {{ setView.lon }}
+{{ city }}
 
-<p> These are your homes!!</p>
-
+<!-- <p> These are your homes!!</p>
+<ul>
 {% for listing in listings %}
-	{{listing.address}}
-	{{listing.city}}
-	{{listing.list_price}}
+	<li>{{listing.address}} {{listing.city}} {{listing.zip_code}} {{listing.list_price}}</li>
+  <li>Latitude: {{listing.latitude}} Longitude: {{listing.longitude}}</li>
 {% endfor %}
-
-
+</ul>
+ -->
 
  
 <script>
@@ -50,7 +49,7 @@ var features = [];
                   properties: {
                       'marker-color': '#060',
                       'marker-symbol': 'building',
-                       title: '{{listing.address|capitalize}}',
+                       title: '{{listing.address, listing.zip_code, listing.longitude,listing.latitude}}',
                       {% if listing.list_price %}
                         'Price:': '{{listing.list_price}}'
                       {% endif %}
@@ -71,24 +70,42 @@ var features = [];
               // Get the map bounds - the top-left and bottom-right locations.
                   bounds = map.getBounds();
 
-              // For each marker, consider whether it is currently visible by comparing
-              // with the current map bounds.
+              // For each marker, consider whether it is currently visible by comparing with the current map bounds.
               myHouseLayer.eachLayer(function(marker) {
                   if (bounds.contains(marker.getLatLng())) {
                       inBounds.push(marker.options.title);
                   }
               });
-
               // Display a list of markers.
-              document.getElementById('coordinates').innerHTML = inBounds.join('\n');
+              // document.getElementById('coordinates').innerHTML = inBounds.join('\n');
           });
 
 </script>
+
+
+<!-- //       var checkboxes = $("input[type='checkbox']"),
+//           displayButton = $("input[type='submit']");
+
+//       checkboxes.click(function() {
+//         displayButton.attr("disabled",
+//           !checkboxes.is(":checked"));
+//       });
+//  -->
+<script>
+var data = { 'category_filter[]' : []};
+
+$("input:checked").each(function(){
+  data['category_filter[]'].push($(this).val());
+});
+console.log()
+
+// $(input[type="checkbox"]).on("click", function(){
+//   $.post("yelp_params",($("input:checked").val()));
+// });
+</script>
 </div>
-
-
 	<div class="col-md-3">
-		<form action="/make_yelp_parameters" method="GET" id="Yelp_Params">
+		<form action="/yelp_params" method="GET" id="Yelp_Params">
 			  <h5> I want to live within walking distance of: </h5>
 				<label> <input type="checkbox" name="category_filter" value="grocery"> Grocery Stores </label>
 				<br>
@@ -106,11 +123,45 @@ var features = [];
 				<br>
 				<label><input type="checkbox" name="category_filter" value="rock_climbing"> Rock Climbing </label>
 				<br>
+        <input type="hidden" name="location" value="{{city}}">
 				<input type="submit" value="Display">
 			</form>
 		</div>
 	</div>
 </div>
 
+<script>
+$( "input:checkbox:checked" ).val();
+  if val(){
+   
+  }
+// $( "input:checkbox:checked" ).val();
+
+
+// $(input[type="checkbox"]).on("click", function(){
+//   $.post("yelp_params",($("input:checked").val()));
+// });
+</script>
+<script>
+// ****** Options for checkbox collection *******
+var data = { 'category_filter[]' : []};
+
+$("input:checked").each(function(){
+  data['category_filter[]'].push($(this).val());
+});
+
+$("#checkbox").checked(function(){
+  $.post("/yelp_params", "dataPRINT", function(data){
+    alert( "DataLoaded: " + data);
+  }
+});
+
+$( "input:checkbox:checked" ).val();
+
+
+$(input[type="checkbox"]).on("click", function(){
+  $.post("yelp_params",($("input:checked").val()));
+});
+</script>
 
 {% endblock %}
