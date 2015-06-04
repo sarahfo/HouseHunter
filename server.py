@@ -64,13 +64,14 @@ def search_parameters():
         yelp_location = request.args['location']
         
         businesses = get_results(make_parameters(yelp_search, yelp_location))
+        return jsonify(businesses=businesses)
         
 def make_parameters(yelp_search, yelp_location):
     """Yelp API defines the key names for the parameters."""
     params = {}
     params['category_filter'] = yelp_search
     params ["location"] = yelp_location
-
+    print params
     return params
 
 def get_results(params):
@@ -87,14 +88,15 @@ def get_results(params):
    
     data = json.loads(request.text)  #Transforms the JSON API response into a Python dictionary
     auth_session.close()
-    pprint.pprint(data)
+    # pprint.pprint(data)
     businesses = data['businesses']
-    return redirect("/map_page", businesses=businesses)
+    # print businesses
+    return businesses
 
 
 @app.errorhandler(404)
 def fourOhFour(error):
-   return render_template("fourohfour.html")
+   return render_template("fourohfour.html"), 404
         
 
 if __name__ == "__main__":

@@ -16,23 +16,7 @@ $(document).ready(function(){
     	 });
   });	
     	 
-    	  // COULD USE THE MULTIPLE RETURN OPTION HERE?
-        	// $.ajax({url: "/get_homes", data: {city_id:city_id}})
-// $.get('/get_homes', function(makeMap(setView)) {
-
-
-//     function makeMap(setView) {
-// 	L.mapbox.accessToken = 'pk.eyJ1Ijoic2FyYWhmbyIsImEiOiJaQmdHLWZJIn0.eEg4zenYs0-qcPsMBZ9i1g';
-// 	var map = L.mapbox.map('map', 'sarahfo.ma312pld').setView([setView], 12);
-// 	console.log(setView)
-// 	// var myLayer = L.mapbox.featureLayer().addTo(map);
-// 	// var features = [];
-// };
-// });
-// });  
-// 	
-// 	
-// }
+    	  
 // could use for multiple calls:
 // function funname_get(url) {
 

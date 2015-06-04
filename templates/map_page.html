@@ -32,7 +32,7 @@ L.control.layers({
 	'Mapbox Streets': L.mapbox.tileLayer('mapbox.streets').addTo(map),
 });
 var myHouseLayer = L.mapbox.featureLayer().addTo(map)
-
+var setView = [{{setView.lat}}, {{setView.lon}}]
 var features = [];
 
 {% for listing in listings %}
@@ -80,32 +80,12 @@ var features = [];
               // document.getElementById('coordinates').innerHTML = inBounds.join('\n');
           });
 
-</script>
 
 
-<!-- //       var checkboxes = $("input[type='checkbox']"),
-//           displayButton = $("input[type='submit']");
-
-//       checkboxes.click(function() {
-//         displayButton.attr("disabled",
-//           !checkboxes.is(":checked"));
-//       });
-//  -->
-<script>
-var data = { 'category_filter[]' : []};
-
-$("input:checked").each(function(){
-  data['category_filter[]'].push($(this).val());
-});
-console.log()
-
-// $(input[type="checkbox"]).on("click", function(){
-//   $.post("yelp_params",($("input:checked").val()));
-// });
 </script>
 </div>
 	<div class="col-md-3">
-		<form action="/yelp_params" method="GET" id="Yelp_Params">
+		<form id="Yelp_Params">
 			  <h5> I want to live within walking distance of: </h5>
 				<label> <input type="checkbox" name="category_filter" value="grocery"> Grocery Stores </label>
 				<br>
@@ -124,44 +104,59 @@ console.log()
 				<label><input type="checkbox" name="category_filter" value="rock_climbing"> Rock Climbing </label>
 				<br>
         <input type="hidden" name="location" value="{{city}}">
-				<input type="submit" value="Display">
+				<button id="submit_prefs"> Display</button>
 			</form>
 		</div>
 	</div>
 </div>
 
 <script>
-$( "input:checkbox:checked" ).val();
-  if val(){
-   
-  }
-// $( "input:checkbox:checked" ).val();
+var myLayer = L.mapbox.featureLayer().addTo(map)
+$('#submit_prefs').bind('click', getData)
 
+function getData(e){
+  e.preventDefault();
+  var url = '/yelp_params'
+  var data = $('#Yelp_Params').serializeArray();
+  $.get(url, data, function(result){
+      var features = [];
+          for (var i = 0; i < result.businesses.length; i++) {
+              var lat = result.businesses[i].location.coordinate.latitude;
+              var lon = result.businesses[i].location.coordinate.longitude; 
+              features.push({
+                  type: 'Feature',
+                  geometry: {
+                      type: 'Point',
+                      coordinates: [lon, lat]
+                  },
+                  properties: {
+                      'marker-color': '#f01',
+                      'marker-symbol': 'star-stroked',
+                      title: result.businesses[i].name,
+                      url: result.businesses[i].url,
+                      rating: result.businesses[i].rating
+                  }
+              });
+          }
 
-// $(input[type="checkbox"]).on("click", function(){
-//   $.post("yelp_params",($("input:checked").val()));
-// });
+          myLayer.setGeoJSON({
+              type: 'FeatureCollection',
+              features: features
+          });
+      });
+}
+
 </script>
 <script>
-// ****** Options for checkbox collection *******
-var data = { 'category_filter[]' : []};
 
-$("input:checked").each(function(){
-  data['category_filter[]'].push($(this).val());
-});
-
-$("#checkbox").checked(function(){
-  $.post("/yelp_params", "dataPRINT", function(data){
-    alert( "DataLoaded: " + data);
-  }
-});
-
-$( "input:checkbox:checked" ).val();
+// };
 
 
-$(input[type="checkbox"]).on("click", function(){
-  $.post("yelp_params",($("input:checked").val()));
-});
+
+// var map = L.mapbox.map('map', 'sarahfo.ma312pld').setView((setView), 12);
+// var myLayer = L.mapbox.featureLayer().addTo(map);
+
 </script>
+
 
 {% endblock %}
