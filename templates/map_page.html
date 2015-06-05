@@ -7,14 +7,12 @@
         <div class="col-md-9">
 			<div id="map" style="width:100%; height:500px"></div>
 
-AWESOME Map Will go Here.
-YOUR LAT LON:
-{{ setView.lat }}
-{{ setView.lon }}
-{{ city }}
 
-<!-- <p> These are your homes!!</p>
-<ul>
+
+<p>{{ city }}</p>
+
+<!-- <p> These are your homes!!   Shows home listing, address, price, zipcode  </p>
+<ul id="homes">
 {% for listing in listings %}
 	<li>{{listing.address}} {{listing.city}} {{listing.zip_code}} {{listing.list_price}}</li>
   <li>Latitude: {{listing.latitude}} Longitude: {{listing.longitude}}</li>
@@ -31,10 +29,12 @@ var map = L.mapbox.map('map').setView([{{setView.lat}},{{setView.lon}}], 13);
 L.control.layers({
 	'Mapbox Streets': L.mapbox.tileLayer('mapbox.streets').addTo(map),
 });
+
 var myHouseLayer = L.mapbox.featureLayer().addTo(map)
 var setView = [{{setView.lat}}, {{setView.lon}}]
 var features = [];
 
+// Using Jinja to unpack and create the feature collections for the feature layer:
 {% for listing in listings %}
   {% if listing.latitude %}
   {% if listing.longitude %}
@@ -76,11 +76,9 @@ var features = [];
                       inBounds.push(marker.options.title);
                   }
               });
-              // Display a list of markers.
+              // Display a list of markers in a scrollable panel.
               // document.getElementById('coordinates').innerHTML = inBounds.join('\n');
           });
-
-
 
 </script>
 </div>
@@ -111,7 +109,8 @@ var features = [];
 </div>
 
 <script>
-var myLayer = L.mapbox.featureLayer().addTo(map)
+// Create query, query Yelp API, return response to create the feature layer and feature collection for Yelp businesses.  AJAX call.
+var yelpLayer1 = L.mapbox.featureLayer().addTo(map)
 $('#submit_prefs').bind('click', getData)
 
 function getData(e){
@@ -123,6 +122,8 @@ function getData(e){
           for (var i = 0; i < result.businesses.length; i++) {
               var lat = result.businesses[i].location.coordinate.latitude;
               var lon = result.businesses[i].location.coordinate.longitude; 
+              var category5 = result.businesses[i].categories[0]
+              console.log(category5)
               features.push({
                   type: 'Feature',
                   geometry: {
@@ -139,7 +140,7 @@ function getData(e){
               });
           }
 
-          myLayer.setGeoJSON({
+          yelpLayer1.setGeoJSON({
               type: 'FeatureCollection',
               features: features
           });

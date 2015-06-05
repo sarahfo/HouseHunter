@@ -72,6 +72,8 @@ def make_parameters(yelp_search, yelp_location):
     params['category_filter'] = yelp_search
     params ["location"] = yelp_location
     print params
+    print "   "
+    print "@@@@@@@@@@@@@@@@@@@@@@@@"
     return params
 
 def get_results(params):
@@ -88,8 +90,9 @@ def get_results(params):
    
     data = json.loads(request.text)  #Transforms the JSON API response into a Python dictionary
     auth_session.close()
-    # pprint.pprint(data)
+    
     businesses = data['businesses']
+    pprint.pprint(data)
     # print businesses
     return businesses
 
