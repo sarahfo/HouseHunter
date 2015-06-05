@@ -7,19 +7,34 @@
         <div class="col-md-9">
 			<div id="map" style="width:100%; height:500px"></div>
 
-
-
 <p>{{ city }}</p>
+<p id="homes"></p>
+          
 
-<!-- <p> These are your homes!!   Shows home listing, address, price, zipcode  </p>
-<ul id="homes">
-{% for listing in listings %}
-	<li>{{listing.address}} {{listing.city}} {{listing.zip_code}} {{listing.list_price}}</li>
-  <li>Latitude: {{listing.latitude}} Longitude: {{listing.longitude}}</li>
-{% endfor %}
-</ul>
- -->
+<!-- <p> These are your homes!!   Shows home listing, address, price, zipcode  </p> -->
 
+<script>
+
+ {% for listing in listings %}
+    {{loop.index}}
+  {% endfor %}
+
+$('#homes').text("{{loop.index}}" + " are for sale in {{city}}");
+
+// (function(homeCount){
+//     RETURN homes });
+//       "There are " + + "on the " + {{city}} + "market."
+
+  // $('#homeCount' ).text("There are " + homeCount + "on the " + {{city}} + "market.");
+// <!-- {% for listing in listings %} -->
+
+// <!--   {{listing.address}} {{listing.city}} {{listing.zip_code}} {{listing.list_price}}
+//   Latitude: {{listing.latitude}} Longitude: {{listing.longitude}} -->
+// {% endfor %}
+// </ul>
+
+
+</script>
  
 <script>
 //MAKE MAP APPEAR
@@ -146,6 +161,8 @@ function getData(e){
           });
       });
 }
+var yelpLayer1 = L.mapbox.featureLayer().addTo(map)
+
 
 </script>
 <script>
