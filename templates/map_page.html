@@ -6,33 +6,23 @@
     <div class="row">
         <div class="col-md-9">
 			<div id="map" style="width:100%; height:500px"></div>
-
+        <div id="slider"></div>
 <p>{{ city }}</p>
 <p id="homes"></p>
-          
-
-<!-- <p> These are your homes!!   Shows home listing, address, price, zipcode  </p> -->
 
 <script>
 
- {% for listing in listings %}
-    {{loop.index}}
-  {% endfor %}
+$('#homes').text("{{listings|count}}" + " homes are for sale in {{city}}");
 
-$('#homes').text("{{loop.index}}" + " are for sale in {{city}}");
-
-// (function(homeCount){
-//     RETURN homes });
-//       "There are " + + "on the " + {{city}} + "market."
-
-  // $('#homeCount' ).text("There are " + homeCount + "on the " + {{city}} + "market.");
 // <!-- {% for listing in listings %} -->
 
 // <!--   {{listing.address}} {{listing.city}} {{listing.zip_code}} {{listing.list_price}}
 //   Latitude: {{listing.latitude}} Longitude: {{listing.longitude}} -->
 // {% endfor %}
 // </ul>
-
+$(function() {
+    $( "#slider" ).slider();
+  });
 
 </script>
  
@@ -55,7 +45,7 @@ var features = [];
   {% if listing.longitude %}
 
               features.push({
-                  type: 'Feature',
+                  type: 'Feature',   //geoJSON portion
                   geometry: {
                       type: 'Point',
                       coordinates: [{{listing.longitude}}, {{listing.latitude}}]
@@ -65,8 +55,9 @@ var features = [];
                       'marker-color': '#060',
                       'marker-symbol': 'building',
                        title: '{{listing.address, listing.zip_code, listing.longitude,listing.latitude}}',
+                       'url': '{{listing.url}}'
                       {% if listing.list_price %}
-                        'Price:': '{{listing.list_price}}'
+                        'price': '{{listing.list_price}}'
                       {% endif %}
                       
                   }
@@ -94,10 +85,53 @@ var features = [];
               // Display a list of markers in a scrollable panel.
               // document.getElementById('coordinates').innerHTML = inBounds.join('\n');
           });
+var homePopupContent = '<a target="_blank" class="popup" href="' + feature.properties.url + '">' + feature.properties.price + '</a>';
 
+marker.bindPopup(homePopupContent, {
+  closeButton: false,
+  minWidth:320
+
+});
+});
+
+
+// Filter homes by price using a slider
+// function showHomes(minPrice, maxPrice) {
+//     $('#myHouseLayer').hide().filter(function() {
+//         var price = parseInt($(this).data("price"), 10);
+//         return price >= minPrice && price <= maxPrice;
+//     }).show();
+// }
+
+// $(function() {
+//     var options = {
+//         range: true,
+//         min: 0,
+//         max: 1000000,
+//         values: [50, 300],
+//         slide: function(event, ui) {
+//             var min = ui.values[0],
+//                 max = ui.values[1];
+
+//             $("#amount").val("$" + min + " - $" + max);
+//             showHomes(min, max);
+//         }
+//     }, min, max;
+
+//     $("#slider-range").slider(options);
+
+//     min = $("#slider-range").slider("values", 0);
+//     max = $("#slider-range").slider("values", 1);
+
+//     $("#amount").val("$" + min + " - $" + max);
+
+//     showHomes(min, max);
+// })
 </script>
 </div>
 	<div class="col-md-3">
+
+
 		<form id="Yelp_Params">
 			  <h5> I want to live within walking distance of: </h5>
 				<label> <input type="checkbox" name="category_filter" value="grocery"> Grocery Stores </label>
@@ -147,7 +181,7 @@ function getData(e){
                   },
                   properties: {
                       'marker-color': '#f01',
-                      'marker-symbol': 'star-stroked',
+                      'marker-symbol': 'star-stroked',  //marker symbol variable will be 'star stroked '
                       title: result.businesses[i].name,
                       url: result.businesses[i].url,
                       rating: result.businesses[i].rating

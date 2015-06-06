@@ -2,7 +2,7 @@
 """Models and database functions for House Hunter project."""
 
 from flask_sqlalchemy import SQLAlchemy
-# from sqlalchemy.orm import mapper
+from sqlalchemy import func
 
 
 db = SQLAlchemy()

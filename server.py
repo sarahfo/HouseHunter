@@ -7,6 +7,7 @@ from yelpapi import YelpAPI
 from flask import Flask, render_template, request, flash, redirect, session, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
 from model import House, User, connect_to_db, db
+from sqlalchemy import func
 
 
 app = Flask(__name__)
@@ -49,6 +50,8 @@ def map():
         print "no city id selected"
 
     listings = House.query.filter_by(city_id=city_id).all()
+    min_price = db.session.query(db.func.min(House.list_price), db.func.max(House.list_price)).filter_by(city_id=city_id).one()
+    print min_price
     # homes = listings['homes']
     # listings = json.dumps(listings)
     # EITHER PARSE JSON HERE OR SEND IT BACK TO SCRIPT FOR JINJA TO DEAL WITH.
