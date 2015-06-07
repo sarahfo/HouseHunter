@@ -16,20 +16,6 @@ $(document).ready(function(){
     	 });
   });	
     	 
-    	  
-// could use for multiple calls:
-// function funname_get(url) {
 
-// 	return $.ajax({
-// 		url: url,
-// 		type: 'get',
-// 		dataType: 'datatypespecified',
-
-// 	});
-// }
-
-// funname_get('/index').done(function(data) {
-// 	//stuff you want to do with the data
-// });
 
 
