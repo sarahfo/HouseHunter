@@ -5,40 +5,32 @@
 <div class="container">
     <div class="row">
         <div class="col-md-9">
-			<div id="map" style="width:100%; height:500px"></div>
-        <div id="slider"></div>
-<p>{{ city }}</p>
-<p id="homes"></p>
+			   <div id="map" style="width:100%; height:500px"></div>
+            <p>{{ city }}</p>
 
-<script>
+          <div id="slider"></div>
+            <p id="homes"></p>
 
-$('#homes').text("{{listings|count}}" + " homes are for sale in {{city}}");
-
-// <!-- {% for listing in listings %} -->
-
-// <!--   {{listing.address}} {{listing.city}} {{listing.zip_code}} {{listing.list_price}}
-//   Latitude: {{listing.latitude}} Longitude: {{listing.longitude}} -->
-// {% endfor %}
-// </ul>
-$(function() {
-    $( "#slider" ).slider();
-  });
-
-</script>
+          <script> 
+              $('#homes').text("{{listings|count}}" + " homes are for sale in {{city}}"); 
+          
+              $(function() {
+                  $( "#slider" ).slider();
+              });
+          </script>
+<!-- old jinja for-loop used to exist here to take out listing data. -->
  
 <script>
 //MAKE MAP APPEAR
-
 L.mapbox.accessToken = 'pk.eyJ1Ijoic2FyYWhmbyIsImEiOiJaQmdHLWZJIn0.eEg4zenYs0-qcPsMBZ9i1g';
 var map = L.mapbox.map('map').setView([{{setView.lat}},{{setView.lon}}], 13);
-L.control.layers({
-	'Mapbox Streets': L.mapbox.tileLayer('mapbox.streets').addTo(map),
+L.control.layers({'Mapbox Streets': L.mapbox.tileLayer('mapbox.streets').addTo(map),
+
 });
 
 var myHouseLayer = L.mapbox.featureLayer().addTo(map)
 var setView = [{{setView.lat}}, {{setView.lon}}]
 var features = [];
-
 // Using Jinja to unpack and create the feature collections for the feature layer:
 {% for listing in listings %}
   {% if listing.latitude %}
@@ -55,9 +47,9 @@ var features = [];
                       'marker-color': '#060',
                       'marker-symbol': 'building',
                        title: '{{listing.address, listing.zip_code, listing.longitude,listing.latitude}}',
-                       'url': '{{listing.url}}'
+                       'url': '{{listing.url}}',
                       {% if listing.list_price %}
-                        'price': '{{listing.list_price}}'
+                        'Price': {{listing.list_price}}
                       {% endif %}
                       
                   }
@@ -85,53 +77,20 @@ var features = [];
               // Display a list of markers in a scrollable panel.
               // document.getElementById('coordinates').innerHTML = inBounds.join('\n');
           });
-var homePopupContent = '<a target="_blank" class="popup" href="' + feature.properties.url + '">' + feature.properties.price + '</a>';
+// var homePopupContent = '<a target="_blank" class="popup" href="' + feature.properties.url + '">' + feature.properties.price + '</a>';
 
-marker.bindPopup(homePopupContent, {
-  closeButton: false,
-  minWidth:320
+// marker.bindPopup(homePopupContent, {
+//   closeButton: false,
+//   minWidth:320
 
-});
-});
+// });
+// });
 
 
-// Filter homes by price using a slider
-// function showHomes(minPrice, maxPrice) {
-//     $('#myHouseLayer').hide().filter(function() {
-//         var price = parseInt($(this).data("price"), 10);
-//         return price >= minPrice && price <= maxPrice;
-//     }).show();
-// }
 
-// $(function() {
-//     var options = {
-//         range: true,
-//         min: 0,
-//         max: 1000000,
-//         values: [50, 300],
-//         slide: function(event, ui) {
-//             var min = ui.values[0],
-//                 max = ui.values[1];
-
-//             $("#amount").val("$" + min + " - $" + max);
-//             showHomes(min, max);
-//         }
-//     }, min, max;
-
-//     $("#slider-range").slider(options);
-
-//     min = $("#slider-range").slider("values", 0);
-//     max = $("#slider-range").slider("values", 1);
-
-//     $("#amount").val("$" + min + " - $" + max);
-
-//     showHomes(min, max);
-// })
 </script>
 </div>
 	<div class="col-md-3">
-
-
 		<form id="Yelp_Params">
 			  <h5> I want to live within walking distance of: </h5>
 				<label> <input type="checkbox" name="category_filter" value="grocery"> Grocery Stores </label>
@@ -172,43 +131,92 @@ function getData(e){
               var lat = result.businesses[i].location.coordinate.latitude;
               var lon = result.businesses[i].location.coordinate.longitude; 
               var category5 = result.businesses[i].categories[0]
-              console.log(category5)
               features.push({
                   type: 'Feature',
                   geometry: {
                       type: 'Point',
-                      coordinates: [lon, lat]
-                  },
+                      coordinates: [lon, lat]},
                   properties: {
                       'marker-color': '#f01',
-                      'marker-symbol': 'star-stroked',  //marker symbol variable will be 'star stroked '
-                      title: result.businesses[i].name,
-                      url: result.businesses[i].url,
-                      rating: result.businesses[i].rating
+                      'marker-symbol': 'star-stroked',
+                      'marker-size': 'medium',
+                      'title': result.businesses[i].name,
+                      'url': result.businesses[i].url,
+                      'rating': result.businesses[i].rating_img_url_small
                   }
               });
           }
+  yelpLayer1.on('layeradd', function(e){
+    var yelpMarker = e.layer,
+        feature = yelpMarker.feature;
 
+    var yelpPopupContent ='<a target="_blank" class="popup" href="' + feature.properties.url + '">' +
+                             feature.properties.title + '<br \/>' +
+                            '<img src="' + feature.properties.rating + '" />'  +
+                        '</a>';
+
+    yelpMarker.bindPopup(yelpPopupContent,{
+      closeButton: false,
+    });
+  });
           yelpLayer1.setGeoJSON({
               type: 'FeatureCollection',
               features: features
           });
       });
 }
-var yelpLayer1 = L.mapbox.featureLayer().addTo(map)
-
 
 </script>
 <script>
 
 // };
 
-
-
 // var map = L.mapbox.map('map', 'sarahfo.ma312pld').setView((setView), 12);
 // var myLayer = L.mapbox.featureLayer().addTo(map);
 
 </script>
+    <div class="row">
+      <div class="col-md-1"></div>
+        <div class="col-md-3">
 
 
+          
+       
+
+<!-- // Filter homes by price using a slider
+// function showHomes(minPrice, maxPrice) {
+//     $('#myHouseLayer').hide().filter(function() {
+//         var price = parseInt($(this).data("price"), 10);
+//         return price >= minPrice && price <= maxPrice;
+//     }).show();
+// }
+
+// $(function() {
+//     var options = {
+//         range: true,
+//         min: 0,
+//         max: 1000000,
+//         values: [50, 300],
+//         slide: function(event, ui) {
+//             var min = ui.values[0],
+//                 max = ui.values[1];
+
+//             $("#amount").val("$" + min + " - $" + max);
+//             showHomes(min, max);
+//         }
+//     }, min, max;
+
+//     $("#slider-range").slider(options);
+
+//     min = $("#slider-range").slider("values", 0);
+//     max = $("#slider-range").slider("values", 1);
+
+//     $("#amount").val("$" + min + " - $" + max);
+
+//     showHomes(min, max);
+// })
+ -->
+        </div>
+      </div>
+    
 {% endblock %}

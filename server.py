@@ -50,13 +50,11 @@ def map():
         print "no city id selected"
 
     listings = House.query.filter_by(city_id=city_id).all()
-    min_price = db.session.query(db.func.min(House.list_price), db.func.max(House.list_price)).filter_by(city_id=city_id).one()
-    print min_price
-    # homes = listings['homes']
-    # listings = json.dumps(listings)
-    # EITHER PARSE JSON HERE OR SEND IT BACK TO SCRIPT FOR JINJA TO DEAL WITH.
-    # FOR MAPPING OBJECTS, need the address or lat/lon. 
-    return render_template("map_page.html", setView=setView, listings=listings, city=city)
+    min_max_price = db.session.query(db.func.min(House.list_price), db.func.max(House.list_price)).filter_by(city_id=city_id).one()
+    print min_max_price
+    print setView
+
+    return render_template("map_page.html", setView=setView, listings=listings, city=city, min_max_price=min_max_price)
 
 @app.route('/yelp_params', methods=['GET'])
 def search_parameters():
@@ -75,13 +73,11 @@ def make_parameters(yelp_search, yelp_location):
     params['category_filter'] = yelp_search
     params ["location"] = yelp_location
     print params
-    print "   "
-    print "@@@@@@@@@@@@@@@@@@@@@@@@"
+
     return params
 
 def get_results(params):
     """OAuth Session with secret keys, sourced from OS."""
-
     
     auth_session = rauth.OAuth1Session(
         consumer_key = os.environ['YELP_CONSUMER_KEY'],
@@ -106,11 +102,7 @@ def fourOhFour(error):
         
 
 if __name__ == "__main__":
-    # We have to set debug=True here, since it has to be True at the point
-    # that we invoke the DebugToolbarExtension
-
     connect_to_db(app)
-    
     # Use the DebugToolbar
     DebugToolbarExtension(app)
 
