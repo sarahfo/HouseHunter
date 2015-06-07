@@ -55,7 +55,7 @@ class House(db.Model):
 	favorite = db.Column(db.String(1), nullable=True)
 	latitude = db.Column(db.Integer, nullable=True)
 	longitude = db.Column(db.Integer, nullable=True)
-	city_id = db.Column(db.String(5), nullable=True)
+	city_id = db.Column(db.String(5), nullable=True)  
 
 	# def __repr__(self):
 	# 	"""Represents the data in a helpful way when printed"""
@@ -76,8 +76,6 @@ def connect_to_db(app):
 
 
 if __name__ == "__main__":
-    # As a convenience, if we run this module interactively, it will leave
-    # you in a state of being able to work with the database directly.
 
     from server import app
     connect_to_db(app)
