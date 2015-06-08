@@ -18,7 +18,7 @@
                   $( "#slider" ).slider();
               });
           </script>
-<!-- old jinja for-loop used to exist here to take out listing data. -->
+<!-- old jinja for-loop usedto exist here to take out listing data. -->
  
 <script>
 //MAKE MAP APPEAR
@@ -41,32 +41,24 @@ var features = [];
                   geometry: {
                       type: 'Point',
                       coordinates: [{{listing.longitude}}, {{listing.latitude}}]
-
                   },
                   properties: {
-                      'marker-color': '#060',
+                      'marker-color': '#42647F',
                       'marker-symbol': 'building',
-                       title: '{{listing.address, listing.zip_code, listing.longitude,listing.latitude}}',
-                       'url': '{{listing.url}}',
+                       title: '{{listing.address}}',
+                      'url': '{{listing.url}}',
                       {% if listing.list_price %}
-                        'Price': {{listing.list_price}}
+                      'Price': {{listing.list_price}}
                       {% endif %}
-                      
                   }
               });
       {% endif %}
   {% endif %}      
 {% endfor %}
-          myHouseLayer.setGeoJSON({
-              type: 'FeatureCollection',
-              features: features
-          });
 
           map.on('move', function() {
-              // Construct an empty list to fill with onscreen markers.
-              var inBounds = [],
-              // Get the map bounds - the top-left and bottom-right locations.
-                  bounds = map.getBounds();
+              var inBounds = [],  // Construct an empty list to fill with onscreen markers.
+                  bounds = map.getBounds(); // Get the map bounds - the top-left and bottom-right locations.
 
               // For each marker, consider whether it is currently visible by comparing with the current map bounds.
               myHouseLayer.eachLayer(function(marker) {
@@ -74,15 +66,25 @@ var features = [];
                       inBounds.push(marker.options.title);
                   }
               });
-              // Display a list of markers in a scrollable panel.
-              // document.getElementById('coordinates').innerHTML = inBounds.join('\n');
           });
-// var homePopupContent = '<a target="_blank" class="popup" href="' + feature.properties.url + '">' + feature.properties.price + '</a>';
+            myHouseLayer.on('layeradd', function(e){
+            var marker = e.layer,
+                feature = marker.feature;
 
-// marker.bindPopup(homePopupContent, {
-//   closeButton: false,
-//   minWidth:320
+            var housePopupContent ='<a target="_blank" class="popup" href="' + feature.properties.url + '">' +
+                                     feature.properties.title + '<br \/>' + '</a>'
+                                    '<p>List Price:' + feature.properties.Price + '</p>';
 
+            marker.bindPopup(housePopupContent,{
+              closeButton: false,
+            });
+          });
+                  myHouseLayer.setGeoJSON({
+                      type: 'FeatureCollection',
+                      features: features
+                  });
+            
+      
 // });
 // });
 
@@ -146,6 +148,8 @@ function getData(e){
                   }
               });
           }
+// Now make custom popup markers containing info for each business returned.
+
   yelpLayer1.on('layeradd', function(e){
     var yelpMarker = e.layer,
         feature = yelpMarker.feature;
