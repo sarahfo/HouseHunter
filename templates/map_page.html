@@ -8,18 +8,19 @@
 			   <div id="map" style="width:100%; height:500px"></div>
             <p>{{ city }}</p>
 
-          <div id="slider"></div>
-            <p id="homes"></p>
+          
+           <!--  <p id="homes"></p> -->
 
           <script> 
               $('#homes').text("{{listings|count}}" + " homes are for sale in {{city}}"); 
-          
+          </script>
+          <div id="slider"></div>
+          <script>
               $(function() {
                   $( "#slider" ).slider();
               });
           </script>
 <!-- old jinja for-loop usedto exist here to take out listing data. -->
- 
 <script>
 //MAKE MAP APPEAR
 L.mapbox.accessToken = 'pk.eyJ1Ijoic2FyYWhmbyIsImEiOiJaQmdHLWZJIn0.eEg4zenYs0-qcPsMBZ9i1g';
@@ -72,8 +73,8 @@ var features = [];
                 feature = marker.feature;
 
             var housePopupContent ='<a target="_blank" class="popup" href="' + feature.properties.url + '">' +
-                                     feature.properties.title + '<br \/>' + '</a>'
-                                    '<p>List Price:' + feature.properties.Price + '</p>';
+                                     feature.properties.title + '<br \/>' + '</a>' +
+                                    '<p>List Price:' + feature.properties.Price + '<\/p>';
 
             marker.bindPopup(housePopupContent,{
               closeButton: false,
@@ -83,10 +84,66 @@ var features = [];
                       type: 'FeatureCollection',
                       features: features
                   });
-            
-      
-// });
-// });
+// Filter homes by price using a slider///////////////////////////////////
+</script>
+<p>
+  <label for="amount">Price range:</label>
+  <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+</p>
+<script>
+{% for i in min_max_price %}  // grab min and max price from jinja
+  var minPrice = {{min_max_price[0]}}
+  var maxPrice = {{min_max_price[1]}}
+{% endfor %}
+    $(function(){
+      $("#slider-range").slider({
+        range: true,
+        min: minPrice,
+        max: maxPrice,
+    //     slide: function (event, ui) {
+    //       $("#amount").val( "$" + ui.values[0] + " - $" + ui.values[1]);
+    //     }
+    //   });
+    // $("#amount").val("$" + $("#slider-range").slider("values",0) + "
+    //   - $" + $("#slider-range").slider("values",1));
+  });
+// })
+
+// function updateSlider(slideAmount)
+// for (var i = 0; i < features.length; i++) {
+
+// function showHomes(minPrice, maxPrice) {
+//     $('#myHouseLayer').hide().filter(function() {
+//         var price = parseInt($(this).data("price"), 10);
+//         return price >= minPrice && price <= maxPrice;
+//     }).show();
+// }
+
+// $(function() {
+//     var options = {
+//         range: true,
+//         min: 0,
+//         max: 1000000,
+//         values: [50, 300],
+//         slide: function(event, ui) {
+//             var min = ui.values[0],
+//                 max = ui.values[1];
+
+//             $("#amount").val("$" + min + " - $" + max);
+//             showHomes(min, max);
+//         }
+//     }, min, max;
+
+//     $("#slider-range").slider(options);
+
+//     min = $("#slider-range").slider("values", 0);
+//     max = $("#slider-range").slider("values", 1);
+
+//     $("#amount").val("$" + min + " - $" + max);
+
+//     showHomes(min, max);
+// })
+ -->
 
 
 
@@ -133,6 +190,7 @@ function getData(e){
               var lat = result.businesses[i].location.coordinate.latitude;
               var lon = result.businesses[i].location.coordinate.longitude; 
               var category5 = result.businesses[i].categories[0]
+                /// possibly put if statement to determine categories and change marker-symbol here////
               features.push({
                   type: 'Feature',
                   geometry: {
@@ -140,7 +198,7 @@ function getData(e){
                       coordinates: [lon, lat]},
                   properties: {
                       'marker-color': '#f01',
-                      'marker-symbol': 'star-stroked',
+                      'marker-symbol':'star-stroked',
                       'marker-size': 'medium',
                       'title': result.businesses[i].name,
                       'url': result.businesses[i].url,
@@ -171,14 +229,7 @@ function getData(e){
 }
 
 </script>
-<script>
 
-// };
-
-// var map = L.mapbox.map('map', 'sarahfo.ma312pld').setView((setView), 12);
-// var myLayer = L.mapbox.featureLayer().addTo(map);
-
-</script>
     <div class="row">
       <div class="col-md-1"></div>
         <div class="col-md-3">
@@ -187,39 +238,7 @@ function getData(e){
           
        
 
-<!-- // Filter homes by price using a slider
-// function showHomes(minPrice, maxPrice) {
-//     $('#myHouseLayer').hide().filter(function() {
-//         var price = parseInt($(this).data("price"), 10);
-//         return price >= minPrice && price <= maxPrice;
-//     }).show();
-// }
 
-// $(function() {
-//     var options = {
-//         range: true,
-//         min: 0,
-//         max: 1000000,
-//         values: [50, 300],
-//         slide: function(event, ui) {
-//             var min = ui.values[0],
-//                 max = ui.values[1];
-
-//             $("#amount").val("$" + min + " - $" + max);
-//             showHomes(min, max);
-//         }
-//     }, min, max;
-
-//     $("#slider-range").slider(options);
-
-//     min = $("#slider-range").slider("values", 0);
-//     max = $("#slider-range").slider("values", 1);
-
-//     $("#amount").val("$" + min + " - $" + max);
-
-//     showHomes(min, max);
-// })
- -->
         </div>
       </div>
     

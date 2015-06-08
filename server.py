@@ -51,7 +51,6 @@ def map():
 
     listings = House.query.filter_by(city_id=city_id).all()
     min_max_price = db.session.query(db.func.min(House.list_price), db.func.max(House.list_price)).filter_by(city_id=city_id).one()
-    print min_max_price
     print setView
 
     return render_template("map_page.html", setView=setView, listings=listings, city=city, min_max_price=min_max_price)
