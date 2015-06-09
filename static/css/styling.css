@@ -8,10 +8,10 @@ body {
 h1 {
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
-  font-size: 42px;
+  font-size: 60px;
 }
 
-
+/****************   Photo Selectors   ******************/
 img.city.img-responsive {
   margin-bottom: 15px;
   border-radius: 20px;
@@ -29,10 +29,44 @@ transition: all 1s ease;
 }
 .brighten img:hover {
 -webkit-filter: brightness(150%);
-box-shadow: 7px 7px 5px rgba(61, 67, 79, .5);
-/*box-shadow: 7px 7px 5px #3d434f*/
+/*box-shadow: 7px 7px 5px rgba(61, 67, 79, .5);*/
+/*box-shadow: 7px 7px 5px #3d434f; */
 }
+
+/*figure.effect-city img {
+  opacity: 0.7;
+  -webkit-transition: opacity 0.35s;
+  transition: opacity 0.35s;
+}*/
+.effect-city p {
+  padding: 20px 2.5em;
+  font-family: 'Pacifico', sans-serif;
+  font-size: 50px;
+  margin-top: -120px;
+  padding: 20px 2.5em;
+  white-space: nowrap;
+  opacity: 0;
+  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s;
+  -webkit-transform: translate3d(0,20px,0);
+  transform: translate3d(0,20px,0);
+}
+
+.effect-city:hover img {
+  -webkit-transition: opacity 0.35s;
+  transition: opacity 0.35s;
+  opacity: 0.5;
+  border: 7px solid rgba(0, 0, 0, 1);
+}
+
+.effect-city:hover p {
+  opacity: 1;
+  -webkit-transform: translate3d(0,0,0);
+  transform: translate3d(0,0,0);
+}
+
 /**************     NavBar     ************/
+
 #super_specific_id {
 	background-color: #3b3f46;
   font-family: 'Montserrat', sans-serif
