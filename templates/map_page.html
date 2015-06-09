@@ -1,25 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
 
-
 <div class="container">
     <div class="row">
         <div class="col-md-9">
 			   <div id="map" style="width:100%; height:500px"></div>
             <p>{{ city }}</p>
-
-          
-           <!--  <p id="homes"></p> -->
+            <p id="homes"></p>
 
           <script> 
               $('#homes').text("{{listings|count}}" + " homes are for sale in {{city}}"); 
           </script>
-          <div id="slider"></div>
-          <script>
-              $(function() {
-                  $( "#slider" ).slider();
-              });
-          </script>
+
 <!-- old jinja for-loop usedto exist here to take out listing data. -->
 <script>
 //MAKE MAP APPEAR
@@ -74,7 +66,7 @@ var features = [];
 
             var housePopupContent ='<a target="_blank" class="popup" href="' + feature.properties.url + '">' +
                                      feature.properties.title + '<br \/>' + '</a>' +
-                                    '<p>List Price:' + feature.properties.Price + '<\/p>';
+                                    '<p>List Price: $' + numberWithCommas(feature.properties.Price) + '<\/p>';
 
             marker.bindPopup(housePopupContent,{
               closeButton: false,
@@ -84,40 +76,11 @@ var features = [];
                       type: 'FeatureCollection',
                       features: features
                   });
-// Filter homes by price using a slider///////////////////////////////////
+
 </script>
-<p>
-  <label for="amount">Price range:</label>
-  <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
-</p>
+
+<!-- // Filter homes by price using a slider/////////////////////////////////// -->
 <script>
-{% for i in min_max_price %}  // grab min and max price from jinja
-  var minPrice = {{min_max_price[0]}}
-  var maxPrice = {{min_max_price[1]}}
-{% endfor %}
-    $(function(){
-      $("#slider-range").slider({
-        range: true,
-        min: minPrice,
-        max: maxPrice,
-    //     slide: function (event, ui) {
-    //       $("#amount").val( "$" + ui.values[0] + " - $" + ui.values[1]);
-    //     }
-    //   });
-    // $("#amount").val("$" + $("#slider-range").slider("values",0) + "
-    //   - $" + $("#slider-range").slider("values",1));
-  });
-// })
-
-// function updateSlider(slideAmount)
-// for (var i = 0; i < features.length; i++) {
-
-// function showHomes(minPrice, maxPrice) {
-//     $('#myHouseLayer').hide().filter(function() {
-//         var price = parseInt($(this).data("price"), 10);
-//         return price >= minPrice && price <= maxPrice;
-//     }).show();
-// }
 
 // $(function() {
 //     var options = {
@@ -171,6 +134,50 @@ var features = [];
         <input type="hidden" name="location" value="{{city}}">
 				<button id="submit_prefs"> Display</button>
 			</form>
+        <br>
+        <br>
+
+        <label for="amount">Price range:</label>
+        <p id="amount">
+        </p>
+          <div id="slider"></div>
+
+          
+<script>
+  var minPrice = {{min_max_price[0]}}
+  var maxPrice = {{min_max_price[1]}}
+
+  $(function(){
+    console.log(minPrice);
+    console.log(maxPrice);
+    $("#slider").slider({
+      range: true,
+      min: minPrice,
+      max: maxPrice,
+      step: 500000,
+      values: [minPrice, maxPrice/6],
+      slide: function (event, ui) {
+        $("#amount").html( "$" + ui.values[0] + " - $" + ui.values[1]);
+        myHouseLayer.setFilter(function(f) {
+          var price = f.properties['Price'];
+          return price >= ui.values[0] && price <= ui.values[1];
+      });
+      }
+    });
+    // function showHomes(minPrice, maxPrice) {
+    //   console.log("search");
+    //   $('#myHouseLayer').hide().filter(function() {
+    //       // var price = parseInt($(this).data("price"), 10);
+    //       console.log(this);
+    //       // return price >= minPrice && price <= maxPrice;
+    //       return false;
+    //   }).show();
+    // } 
+    
+    $("#amount").html("$" + $("#slider").slider("values",0) + 
+      " - $" + $("#slider").slider("values",1));
+  });
+</script>
 		</div>
 	</div>
 </div>

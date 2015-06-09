@@ -9,33 +9,29 @@
 	</div>
 </div>
 
-<!-- div.container>ul#hello>li*5 -->
-
-<!-- 
-   users will see 6 pictures, representing cities.  each has an event attached
-  selected picture will select that city map on next page, send message to server route, render maps.html. -->
-
-  <!-- PUT SIX IMAGES HERE! IN A GRID!!   -->
-
-
-  <div class="container">
-  	<div class="row">
-  		<div class="col-md-9">
-  			<!-- <form action="/get_homes" method="GET" id="city" name="city_id"> -->
-  				<input type="image" id="Portland, OR" src="static/images/Portland.jpg" class="city" width="200" height="200" data-lat="45.523062" data-lon="-122.676482" data-city="PORT" value="PORT">
-
-  				<input type="image" id="San Diego, CA" src="static/images/San_Diego.jpg" class="city" width="200" height="200" data-lat="32.732996" data-lon="117.163868" data-city="SD" value="SD">
-
-  				<input type="image" id="San Francisco, CA" src="static/images/San_Francisco.jpg" class="city" width="200" height="200" data-lat="37.766237" data-lon=-122.439280 data-city="SF" value="SF">
-        </div>
-      </div>
-
-  	<div class="row">
-  			<input type="image" id="Seattle, WA" src="static/images/Seattle.jpg" class="city" width="200" height="200" data-lat="47.606209" data-lon="-122.332071" data-city="SEA" value="WA">
-  			<input type="image" id="Washington, DC" src="static/images/Washington_DC.jpg" class="city" width="200" height="200" data-lat="38.900652" data-lon=-77.030897 data-city="DC" value="DC">
-  		</div>
-  		<!--  <input type="submit"> -->
-  		<!-- 	</form> -->
-
+<div class="container">
+<div class="row">
+    <div class="col-lg-4 col-sm-6 col-xs-12">
+        <img src="/static/images/Portland.jpg" class="city img-responsive" data-lat="45.523062" data-lon="-122.676482" data-city="PORT">
+    </div>
+    <div class="col-lg-4 col-sm-6 col-xs-12">
+      <img src="static/images/San_Diego_CA.jpg" class="city img-responsive" data-lat="32.732996" data-lon="117.163868" data-city="SD">
+    </div>
+    <div class="col-lg-4 col-sm-6 col-xs-12">
+      <img src="static/images/San_Francisco.jpg" class="city img-responsive" data-lat="37.766237" data-lon=-122.439280 data-city="SF"> 
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-4 col-sm-6 col-xs-12">
+      <img src="static/images/Seattle.jpg" class="city img-responsive" data-lat="47.606209" data-lon="-122.332071" data-city="SEA">
+    </div>
+    <div class="col-lg-4 col-sm-6 col-xs-12">
+      <img src="static/images/Washington_DC.jpg" class="city img-responsive" data-lat="38.900652" data-lon=-77.030897 data-city="DC">
+    </div>
+    <div class="col-lg-4 col-sm-6 col-xs-12">
+      <img src="/static/images/goat-in-pajamas.jpg" class="city img-responsive" data-lat="45.523062" data-lon="-122.676482" data-city="PORT">
+    </div>
+  </div>
+</div>
 
   		{% endblock %}
