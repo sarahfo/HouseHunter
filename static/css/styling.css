@@ -1,0 +1,125 @@
+
+/**************    Homepage    ************/
+body {
+  background-color: #fcf8ef
+}
+
+
+h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 42px;
+}
+
+
+img.city.img-responsive {
+  margin-bottom: 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  border: 7px solid #3d434f;
+}
+
+.brighten img {
+-webkit-filter: brightness(95%);
+-webkit-transition: all 1s ease;
+-moz-transition: all 1s ease;
+-o-transition: all 1s ease;
+-ms-transition: all 1s ease;
+transition: all 1s ease;
+}
+.brighten img:hover {
+-webkit-filter: brightness(150%);
+box-shadow: 7px 7px 5px rgba(61, 67, 79, .5);
+/*box-shadow: 7px 7px 5px #3d434f*/
+}
+/**************     NavBar     ************/
+#super_specific_id {
+	background-color: #3b3f46;
+  font-family: 'Montserrat', sans-serif
+}
+  #super_specific_id a{
+    background-color: #3b3f46
+  }
+/*  #C0C0C0*/
+
+  .navbar-brand {
+    font-style: #d1d1d1;
+  }
+
+.navbar-inverse .navbar-nav .active a{
+  color: #9d9d9d;
+  font-size: 16px;
+  } 
+.navbar-inverse .navbar-nav .hover a{
+  color: #fff;
+  font-size: 16px;
+  }
+    
+/*.navbar-md {min-height:40px}
+.navbar-md .navbar-brand,
+.navbar-md .navbar-nav>li>a {padding-top:10px; padding-bottom:10px}
+.navbar-md .navbar-brand {height: 40px}  
+.navbar-md .navbar-toggle {margin: 6px 12px 6px 0px; padding: 6px 7px 6px 7px;}
+.navbar-md .navbar-toggle .icon-bar {width: 19px;}*/
+/**************    Map Toggle Styling    ************/
+
+.menu-ui {
+  background:#fff;
+  position:absolute;
+  top:10px;right:10px;
+  z-index:1;
+  border-radius:3px;
+  width:120px;
+  border:1px solid rgba(0,0,0,0.4);
+  }
+  .menu-ui a {
+    font-size:13px;
+    color:#404040; 
+    display:block;
+    margin:0;padding:0;
+    padding:10px;
+    text-decoration:none;
+    border-bottom:1px solid rgba(0,0,0,0.25);
+    text-align:center;
+    }
+    .menu-ui a:first-child {
+      border-radius:3px 3px 0 0;
+      }
+    .menu-ui a:last-child {
+      border:none;
+      border-radius:0 0 3px 3px;
+      }
+    .menu-ui a:hover {
+      background:#f8f8f8;
+      color:#404040;
+      }
+    .menu-ui a.active {
+      background:#3887BE;
+      color:#FFF;
+      }
+      .menu-ui a.active:hover {
+        background:#3074a4;
+        }
+
+/******************    SLIDER     ******************/
+#slider {
+    margin: 10px;
+}
+  .ui-slider .ui-slider-handle {
+    padding-left: 8px; 
+    color:#046380;
+  }
+
+  .ui-state-default, .ui-widget-content .ui-state-default {
+    border:#046380;
+    background:#046380;
+    color:#046380;
+  }
+
+  .ui-widget-content {
+
+  }
+
+.leaflet-popup-content {
+
+}
