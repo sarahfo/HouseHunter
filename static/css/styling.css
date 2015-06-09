@@ -4,13 +4,19 @@ body {
   background-color: #fcf8ef
 }
 
-
 h1 {
   font-family: 'Montserrat', sans-serif;
+  display: inline-block;
+  vertical-align: bottom;
   font-weight: 700;
-  font-size: 60px;
+  font-size: 57px;
+  padding-top: 20px;
+  padding-left: 7px;
 }
 
+#city_pics {
+  padding-top: 105px;
+}
 /****************   Photo Selectors   ******************/
 img.city.img-responsive {
   margin-bottom: 15px;
@@ -38,12 +44,16 @@ transition: all 1s ease;
   -webkit-transition: opacity 0.35s;
   transition: opacity 0.35s;
 }*/
-.effect-city p {
-  padding: 20px 2.5em;
+div.effect-city{
+  padding-bottom: 20px
+}
+
+p.special {
+  padding-top: 20px;
+  padding-left: .5px;
   font-family: 'Pacifico', sans-serif;
   font-size: 50px;
   margin-top: -120px;
-  padding: 20px 2.5em;
   white-space: nowrap;
   opacity: 0;
   -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
@@ -150,10 +160,10 @@ transition: all 1s ease;
     color:#046380;
   }
 
-  .ui-widget-content {
-
-  }
-
-.leaflet-popup-content {
-
+/*******************   Map Page   *********************/
+p.map_city {
+  font-family: 'Pacifico', sans-serif;
+  font-size: 35px;
 }
+
+
