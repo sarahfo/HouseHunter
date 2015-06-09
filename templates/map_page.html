@@ -36,7 +36,7 @@ var features = [];
                       coordinates: [{{listing.longitude}}, {{listing.latitude}}]
                   },
                   properties: {
-                      'marker-color': '#42647F',
+                      'marker-color': '#4f63af',    //#42647F
                       'marker-symbol': 'building',
                        title: '{{listing.address}}',
                       'url': '{{listing.url}}',
@@ -154,26 +154,16 @@ var features = [];
       range: true,
       min: minPrice,
       max: maxPrice,
-      step: 500000,
+      step: 250000,
       values: [minPrice, maxPrice/6],
       slide: function (event, ui) {
-        $("#amount").html( "$" + ui.values[0] + " - $" + ui.values[1]);
+        $("#amount").html( "$" + numberWithCommas(ui.values[0]) + " - $" + numberWithCommas(ui.values[1]));
         myHouseLayer.setFilter(function(f) {
           var price = f.properties['Price'];
           return price >= ui.values[0] && price <= ui.values[1];
       });
       }
     });
-    // function showHomes(minPrice, maxPrice) {
-    //   console.log("search");
-    //   $('#myHouseLayer').hide().filter(function() {
-    //       // var price = parseInt($(this).data("price"), 10);
-    //       console.log(this);
-    //       // return price >= minPrice && price <= maxPrice;
-    //       return false;
-    //   }).show();
-    // } 
-    
     $("#amount").html("$" + $("#slider").slider("values",0) + 
       " - $" + $("#slider").slider("values",1));
   });
