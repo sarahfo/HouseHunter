@@ -6,7 +6,7 @@
         <div class="col-md-9">
 			   <div id="map" style="width:100%; height:500px"></div>
             <p class="map_city">{{ city }}</p>
-            <p id="homes"></p>
+            <p id="homes" class="num_homes"></p>
 
           <script> 
               $('#homes').text("{{listings|count}}" + " homes are for sale in {{city}}"); 
@@ -36,7 +36,7 @@ var features = [];
                       coordinates: [{{listing.longitude}}, {{listing.latitude}}]
                   },
                   properties: {
-                      'marker-color': '#4f63af',    //#42647F
+                      'marker-color': '#42627F',    //#42647F
                       'marker-symbol': 'building',
                        title: '{{listing.address}}',
                       'url': '{{listing.url}}',
@@ -138,21 +138,29 @@ var features = [];
 	<div class="col-md-3">
 		<form id="Yelp_Params">
 			  <h5> I want to live within walking distance of: </h5>
-				<label> <input type="checkbox" name="category_filter" value="grocery"> Grocery Stores </label>
+				<label class="flat-check-label red-label" for="checkbox">Grocery Stores </label>
+        <input id="checkbox" type="checkbox" class="flat-check active" name="category_filter" value="grocery"> 
 				<br>
-				<label><input type="checkbox" name="category_filter" value="gyms"> Gym </label>
+				<label class="flat-check-label red-label" for="checkbox">Gym </label>
+          <input id="checkbox" type="checkbox" class="flat-check active" name="category_filter" value="gyms">
 				<br>
-				<label><input type="checkbox" name="category_filter" value="restaurants"> Restaurants </label>
+				<label class="flat-check-label red-label" for="checkbox">Restaurants </label>
+          <input id="checkbox" type="checkbox" class="flat-check active" name="category_filter" value="restaurants">
 				<br>
-				<label><input type="checkbox" name="category_filter" value="divebars"> Dive Bars </label>
+				<label class="flat-check-label red-label" for="checkbox">Dive Bars </label>
+          <input id="checkbox" type="checkbox" class="flat-check active" name="category_filter" value="divebars">
 				<br>
-				<label><input type="checkbox" name="category_filter" value="gaybars"> Gay Bars </label>
+				<label class="flat-check-label red-label" for="checkbox">Gay Bars </label>
+          <input id="checkbox" type="checkbox" class="flat-check active" name="category_filter" value="gaybars">
 				<br>
-				<label><input type="checkbox" name="category_filter" value="meditationcenters"> Meditation Centers </label>
+				<label class="flat-check-label red-label" for="checkbox">Meditation Centers </label>
+          <input id="checkbox" type="checkbox" class="flat-check active" name="category_filter" value="meditationcenters">
 				<br>
-				<label><input type="checkbox" name="category_filter" value="yoga"> Yoga </label>
+				<label class="flat-check-label red-label" for="checkbox">Restaurants </label>
+          <input id="checkbox" type="checkbox" class="flat-check active" name="category_filter" value="yoga">
 				<br>
-				<label><input type="checkbox" name="category_filter" value="rock_climbing"> Rock Climbing </label>
+				<label class="flat-check-label red-label" for="checkbox">Rock Climbing </label>
+          <input id="checkbox" type="checkbox" class="flat-check active" name="category_filter" value="rock_climbing">
 				<br>
         <input type="hidden" name="location" value="{{city}}">
 				<button id="submit_prefs"> Display</button>

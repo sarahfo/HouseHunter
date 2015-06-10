@@ -160,10 +160,140 @@ p.special {
     color:#046380;
   }
 
-/*******************   Map Page   *********************/
+#amount {
+  font-family: 'Montserrat';
+  font-size: 17px;
+  color:#3b3f46;
+}
+
+.container {
+  padding-top: 80px;
+}
+/*******************   Map & Map Details   *********************/
 p.map_city {
   font-family: 'Pacifico', sans-serif;
   font-size: 35px;
 }
 
+.num_homes {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 17px;
+}
 
+#map {
+  padding-top: 10px;
+  padding-left: -40px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: #9d9d9d;
+}
+/***************  Yelp Category Selection   ******************/
+h5 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #3b3f46;
+  margin-top: -7px;
+}
+
+#submit_prefs {
+  font-family: 'Pacifico', sans-serif;
+  font-size: 20px;
+  height: 40px;
+  width: 100px;
+}
+
+.flat-check-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16.5px;
+  color: #3b3f46 ;
+  padding-right: 4px;
+}
+
+input[type="checkbox"] {
+  transform:scale(1.5, 1.5);
+}
+/*input[type='checkbox'] {
+    -webkit-appearance:none;
+    width:15px;
+    height:15px;
+    background:white;
+    border-radius:5px;
+    border:2px solid #555;
+}
+input[type='checkbox']:checked {
+    background: #abd;
+}*/
+/*/*input #checkbox {
+
+}
+#Yelp_Params label {  /*works*/
+  /*cursor: pointer;
+}*/
+
+/*.flat-check {
+  display: none;
+  width: 2rem;
+  height: 2rem;
+
+}*/
+/*.flat-check:checked + .flat-check-label,
+.flat-check:checked + .flat-check-label::after {
+  opacity: 1;
+}*/
+/*.flat-check-label {
+  display: block;
+  padding: 1rem;
+  border-radius: 0.25em;
+  transition: 0.15s ease-in-out background-color;
+  position: relative;
+  color: #fff;
+  opacity: 0.75;
+  transition: 0.15s ease opacity;
+  margin-bottom: 1rem;
+  text-align: center;
+}*/
+/*.red-label::before {
+  opacity: 0.5;
+  background-color: #e74c3c;
+  border-color: #e74c3c;
+
+}*/
+/*.flat-check-label::before {
+  content: "";
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  right: -4rem;
+  border: 1px solid #000;
+  background: #fff;
+}*/
+/*.flat-check-label::after {
+  content: "";
+  width: 1rem;
+  height: 1.5rem;
+  position: absolute;
+  right: -2rem;
+  top: 0.5rem;
+  border: 0.5rem solid;
+  border-left: none;
+  border-top: none;
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+  opacity: 0;
+  transition: 0.15s ease opacity;
+}*/
+/*.flat-check-label:hover::after {
+  opacity: 0.6;
+}*/
+/*.red-label {
+  background-color: #e74c3c;
+  border-color: #e74c3c;
+}
+.red-label::after {
+  border-color: inherit;
+}*/

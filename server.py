@@ -105,4 +105,4 @@ if __name__ == "__main__":
     # Use the DebugToolbar
     DebugToolbarExtension(app)
 
-    app.run(debug=True)
+    app.run(debug=False)
